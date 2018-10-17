@@ -18,7 +18,7 @@ import UIKit
 
 class AnimatableNavigationController: UINavigationController, UINavigationControllerDelegate {
 
-    let swipeInteractionController = SwipeInteractionController()
+    @objc let swipeInteractionController = SwipeInteractionController()
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)

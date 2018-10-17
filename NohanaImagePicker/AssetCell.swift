@@ -20,18 +20,24 @@ class AssetCell: UICollectionViewCell {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var pickButton: UIButton!
     @IBOutlet weak var overlayView: UIView!
+    @IBOutlet weak var videoTag: UIImageView!
+    @IBOutlet weak var TagView: UIView!
+    @IBOutlet weak var videoTimeLabel: UILabel!
 
-    weak var nohanaImagePickerController: NohanaImagePickerController?
+    @objc weak var nohanaImagePickerController: NohanaImagePickerController?
     var asset: Asset?
 
     override func willMove(toSuperview newSuperview: UIView?) {
         super.willMove(toSuperview: newSuperview)
-        if let nohanaImagePickerController = nohanaImagePickerController {
-            let droppedImage: UIImage? = nohanaImagePickerController.config.image.droppedSmall ?? UIImage(named: "btn_select_m", in: nohanaImagePickerController.assetBundle, compatibleWith: nil)
-            let pickedImage: UIImage? = nohanaImagePickerController.config.image.pickedSmall ?? UIImage(named: "btn_selected_m", in: nohanaImagePickerController.assetBundle, compatibleWith: nil)
-
-            pickButton.setImage(droppedImage, for: UIControlState())
-            pickButton.setImage(pickedImage, for: .selected)
+        if nohanaImagePickerController != nil {
+            pickButton.setBackgroundImage(UIImage(named: "ic_radio_button_unchecked"), for: UIControlState())
+            pickButton.setBackgroundImage(UIImage(named: "ic_check_circle"), for: .selected)
+            videoTag.image = UIImage(named: "ic_videocam_white")
+            
+            let gradient = CAGradientLayer()
+            gradient.frame = CGRect(x: 0, y: 0, width: TagView.frame.width, height: TagView.frame.height)
+            gradient.colors = [UIColor.clear.cgColor, UIColor(red: 0, green: 0, blue: 0, alpha: 0.7).cgColor]
+            TagView.layer.insertSublayer(gradient, at: 0)
         }
     }
 

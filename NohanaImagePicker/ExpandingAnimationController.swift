@@ -30,9 +30,9 @@ extension Size {
 
 class ExpandingAnimationController: NSObject, UIViewControllerAnimatedTransitioning {
 
-    var fromCell: AssetCell
+    @objc var fromCell: AssetCell
 
-    init(_ fromCell: AssetCell) {
+    @objc init(_ fromCell: AssetCell) {
         self.fromCell = fromCell
     }
 

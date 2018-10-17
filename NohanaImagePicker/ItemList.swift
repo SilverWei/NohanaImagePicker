@@ -29,7 +29,7 @@ extension ItemList {
 
 public protocol Asset {
     var identifier: Int { get }
-    func image(targetSize: CGSize, handler: @escaping (ImageData?) -> Void)
+    func image(targetSize:CGSize, isPreview: Bool, handler: @escaping (ImageData?,Data?) -> Void)
 }
 
 public struct ImageData {

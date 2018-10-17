@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		3569CAA91EC1918E000C41C0 /* NohanaImagePicker.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3569CAA61EC1918E000C41C0 /* NohanaImagePicker.xcassets */; };
+		4733B7E12176E17D006FD41D /* ImgResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4733B7DE2176E17D006FD41D /* ImgResponse.swift */; };
+		4733B7E22176E17D006FD41D /* NightMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4733B7DF2176E17D006FD41D /* NightMode.swift */; };
+		4733B7E32176E17D006FD41D /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4733B7E02176E17D006FD41D /* DataModel.swift */; };
+		4733B7E72176E1B1006FD41D /* videoPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4733B7E62176E1B1006FD41D /* videoPlayerViewController.swift */; };
+		4733B7E92176E1B7006FD41D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4733B7E82176E1B7006FD41D /* Assets.xcassets */; };
 		F202573C1C7418920069B33A /* PickedAssetList.swift in Sources */ = {isa = PBXBuildFile; fileRef = F202573B1C7418920069B33A /* PickedAssetList.swift */; };
 		F208E5541CD7370B00FFC9F6 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F208E5531CD7370B00FFC9F6 /* AppDelegate.swift */; };
 		F208E5591CD7370B00FFC9F6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F208E5571CD7370B00FFC9F6 /* Main.storyboard */; };
@@ -73,6 +78,13 @@
 		23D1CD93207CEB1200F8115E /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/NohanaImagePicker.strings; sourceTree = "<group>"; };
 		3569CAA61EC1918E000C41C0 /* NohanaImagePicker.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = NohanaImagePicker.xcassets; sourceTree = "<group>"; };
 		3590F1F51EC1A79400F32E06 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/NohanaImagePicker.strings; sourceTree = "<group>"; };
+		4733B7DE2176E17D006FD41D /* ImgResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImgResponse.swift; path = "../SM.MS-iOS/SMMS/SMMS/Other/ImgResponse.swift"; sourceTree = "<group>"; };
+		4733B7DF2176E17D006FD41D /* NightMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NightMode.swift; path = "../SM.MS-iOS/SMMS/SMMS/Other/NightMode.swift"; sourceTree = "<group>"; };
+		4733B7E02176E17D006FD41D /* DataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataModel.swift; path = "../SM.MS-iOS/SMMS/SMMS/Other/DataModel.swift"; sourceTree = "<group>"; };
+		4733B7E62176E1B1006FD41D /* videoPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = videoPlayerViewController.swift; path = "../SM.MS-iOS/SMMS/SMMS/Controller/videoPlayerViewController.swift"; sourceTree = "<group>"; };
+		4733B7E82176E1B7006FD41D /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Assets.xcassets; path = "../SM.MS-iOS/SMMS/SMMS/Assets.xcassets"; sourceTree = "<group>"; };
+		4733B7EA2176E2C4006FD41D /* zh-Hant */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hant"; path = "zh-Hant.lproj/NohanaImagePicker.strings"; sourceTree = "<group>"; };
+		4733B7EB2176E2D6006FD41D /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/NohanaImagePicker.strings"; sourceTree = "<group>"; };
 		F202573B1C7418920069B33A /* PickedAssetList.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickedAssetList.swift; sourceTree = "<group>"; };
 		F208E5511CD7370B00FFC9F6 /* Demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Demo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F208E5531CD7370B00FFC9F6 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -138,6 +150,18 @@
 				3569CAA61EC1918E000C41C0 /* NohanaImagePicker.xcassets */,
 			);
 			path = Resources;
+			sourceTree = "<group>";
+		};
+		4733B7D32176DEA0006FD41D /* Other */ = {
+			isa = PBXGroup;
+			children = (
+				4733B7E02176E17D006FD41D /* DataModel.swift */,
+				4733B7DE2176E17D006FD41D /* ImgResponse.swift */,
+				4733B7DF2176E17D006FD41D /* NightMode.swift */,
+				4733B7E62176E1B1006FD41D /* videoPlayerViewController.swift */,
+				4733B7E82176E1B7006FD41D /* Assets.xcassets */,
+			);
+			name = Other;
 			sourceTree = "<group>";
 		};
 		F208E5521CD7370B00FFC9F6 /* Demo */ = {
@@ -215,6 +239,7 @@
 			isa = PBXGroup;
 			children = (
 				F2C08D761C68651900B00181 /* NohanaImagePicker */,
+				4733B7D32176DEA0006FD41D /* Other */,
 				F208E5521CD7370B00FFC9F6 /* Demo */,
 				F2C08D751C68651900B00181 /* Products */,
 			);
@@ -337,6 +362,8 @@
 				ja,
 				ru,
 				de,
+				"zh-Hant",
+				"zh-Hans",
 			);
 			mainGroup = F2C08D6A1C68651900B00181;
 			productRefGroup = F2C08D751C68651900B00181 /* Products */;
@@ -367,6 +394,7 @@
 			files = (
 				F23554261C69D19C00796DCA /* NohanaImagePicker.storyboard in Resources */,
 				F27029CB1C71C43A001647AB /* NohanaImagePicker.strings in Resources */,
+				4733B7E92176E1B7006FD41D /* Assets.xcassets in Resources */,
 				F237249B1C6DCF96005D1E8A /* NohanaImagePicker.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -395,18 +423,22 @@
 				F25C10C21C8ED9BF007453C3 /* MomentViewController.swift in Sources */,
 				F25C69881CA23A0A005935D6 /* MomentCell.swift in Sources */,
 				F2FE1F781C901D9400FDBE7B /* MomentSectionHeaderView.swift in Sources */,
+				4733B7E32176E17D006FD41D /* DataModel.swift in Sources */,
 				F23554281C69D5DB00796DCA /* NohanaImagePickerController.swift in Sources */,
 				F25C69921CA28728005935D6 /* AlbumListEmptyIndicator.swift in Sources */,
 				F2131F431C79615700797887 /* SwipeInteractionController.swift in Sources */,
 				F2DF3B2D1C6D780100C1C0E4 /* AssetDetailCell.swift in Sources */,
+				4733B7E72176E1B1006FD41D /* videoPlayerViewController.swift in Sources */,
 				F25C69901CA27311005935D6 /* EmptyIndicatable.swift in Sources */,
 				F2DA29771C7749D600B0A8E3 /* NotificationInfo.swift in Sources */,
 				F218D7DE1C6C3A5B001FCED1 /* AlbumCell.swift in Sources */,
+				4733B7E22176E17D006FD41D /* NightMode.swift in Sources */,
 				F26775E11C7046C7002E786C /* ExpandingAnimationController.swift in Sources */,
 				F28F4AC51C6C59A500B7D725 /* PhotoKitAsset.swift in Sources */,
 				F2DF3B151C6C76E500C1C0E4 /* AssetListViewController.swift in Sources */,
 				F26775E51C70574F002E786C /* AnimatableNavigationController.swift in Sources */,
 				F2DF3B2B1C6CC4DB00C1C0E4 /* AssetDetailListViewController.swift in Sources */,
+				4733B7E12176E17D006FD41D /* ImgResponse.swift in Sources */,
 				F218D7D61C6B3D22001FCED1 /* PhotoKitAlbumList.swift in Sources */,
 				F24EB6901C68AEED0002EC86 /* AlbumListViewController.swift in Sources */,
 				F28F4AC31C6C49EE00B7D725 /* PhotoKitAssetList.swift in Sources */,
@@ -448,6 +480,8 @@
 				F27029CF1C71C4FE001647AB /* ja */,
 				3590F1F51EC1A79400F32E06 /* ru */,
 				23D1CD93207CEB1200F8115E /* de */,
+				4733B7EA2176E2C4006FD41D /* zh-Hant */,
+				4733B7EB2176E2D6006FD41D /* zh-Hans */,
 			);
 			name = NohanaImagePicker.strings;
 			sourceTree = "<group>";

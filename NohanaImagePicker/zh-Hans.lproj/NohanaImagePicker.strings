@@ -14,9 +14,10 @@
  * limitations under the License.
  */
 
-import UIKit
-
-class AlbumCell: TableViewCell {
-    @IBOutlet weak var thumbnailImageView: UIImageView!
-    @IBOutlet weak var titleLabel: UILabel!
-}
+"albumlist.title" = "Photos";
+"albumlist.empty.message" = "没有照片";
+"albumlist.empty.description" = "用照相应用程序拍摄照片。";
+"albumlist.moment.title" = "Moment";
+"toolbar.title.nolimit" = "已选择: %ld";
+"toolbar.title.videolimit" = "已选择: 视频";
+"toolbar.title.haslimit" = "已选择: %ld / %ld";

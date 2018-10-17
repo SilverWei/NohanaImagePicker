@@ -19,7 +19,7 @@ import Photos
 
 class AssetListViewController: UICollectionViewController, UICollectionViewDelegateFlowLayout {
 
-    weak var nohanaImagePickerController: NohanaImagePickerController?
+    @objc weak var nohanaImagePickerController: NohanaImagePickerController?
     var photoKitAssetList: PhotoKitAssetList!
 
     override func viewDidLoad() {
@@ -30,7 +30,7 @@ class AssetListViewController: UICollectionViewController, UICollectionViewDeleg
         addPickPhotoKitAssetNotificationObservers()
     }
 
-    var cellSize: CGSize {
+    @objc var cellSize: CGSize {
         guard let nohanaImagePickerController = nohanaImagePickerController else {
             return CGSize.zero
         }
@@ -70,13 +70,13 @@ class AssetListViewController: UICollectionViewController, UICollectionViewDeleg
         }
     }
 
-    var isFirstAppearance = true
+    @objc var isFirstAppearance = true
 
-    func updateTitle() {
+    @objc func updateTitle() {
         title = photoKitAssetList.title
     }
 
-    func scrollCollectionView(to indexPath: IndexPath) {
+    @objc func scrollCollectionView(to indexPath: IndexPath) {
         let count: Int? = photoKitAssetList?.count
         guard count != nil && count! > 0 else {
             return
@@ -86,7 +86,7 @@ class AssetListViewController: UICollectionViewController, UICollectionViewDeleg
         }
     }
 
-    func scrollCollectionViewToInitialPosition() {
+    @objc func scrollCollectionViewToInitialPosition() {
         guard isFirstAppearance else {
             return
         }
@@ -122,7 +122,7 @@ class AssetListViewController: UICollectionViewController, UICollectionViewDeleg
             height: cellSize.height * UIScreen.main.scale
         )
         let asset = photoKitAssetList[indexPath.item]
-        asset.image(targetSize: imageSize) { (imageData) -> Void in
+        asset.image(targetSize: imageSize, isPreview: true) { (imageData,data) -> Void in
             DispatchQueue.main.async(execute: { () -> Void in
                 if let imageData = imageData {
                     if cell.tag == indexPath.item {
@@ -131,12 +131,17 @@ class AssetListViewController: UICollectionViewController, UICollectionViewDeleg
                 }
             })
         }
+        cell.TagView.isHidden = asset.asset.mediaType != .video
+        if !cell.TagView.isHidden {
+            let time = "\(Int(asset.asset.duration / 60)):\(String(format: "%.2d", Int(asset.asset.duration.truncatingRemainder(dividingBy: 60))))"
+            cell.videoTimeLabel.text = time
+        }
         return (nohanaImagePickerController.delegate?.nohanaImagePicker?(nohanaImagePickerController, assetListViewController: self, cell: cell, indexPath: indexPath, photoKitAsset: asset.originalAsset)) ?? cell
     }
 
     // MARK: - UICollectionViewDelegateFlowLayout
 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    @objc func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: IndexPath) -> CGSize {
         return cellSize
     }
 

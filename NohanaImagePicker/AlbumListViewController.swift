@@ -17,7 +17,9 @@
 import UIKit
 import Photos
 
-class AlbumListViewController: UITableViewController, EmptyIndicatable, ActivityIndicatable {
+var dataModel = DataModel()
+
+class AlbumListViewController: TableViewController, EmptyIndicatable, ActivityIndicatable {
 
     enum AlbumListViewControllerSectionType: Int {
         case moment = 0
@@ -35,7 +37,7 @@ class AlbumListViewController: UITableViewController, EmptyIndicatable, Activity
         }
     }
 
-    weak var nohanaImagePickerController: NohanaImagePickerController?
+    @objc weak var nohanaImagePickerController: NohanaImagePickerController?
     var photoKitAlbumList: PhotoKitAlbumList!
 
     override func viewDidLoad() {
@@ -157,7 +159,7 @@ class AlbumListViewController: UITableViewController, EmptyIndicatable, Activity
             let albumCount = albumList.count
             if albumCount > 0 {
                 let lastAsset = albumList[albumCount - 1]
-                lastAsset.image(targetSize: imageSize, handler: { (imageData) -> Void in
+                lastAsset.image(targetSize: imageSize, isPreview: true, handler: { (imageData, data) -> Void in
                     DispatchQueue.main.async(execute: { () -> Void in
                         if let imageData = imageData {
                             if cell.tag == indexPath.row {
@@ -213,9 +215,9 @@ class AlbumListViewController: UITableViewController, EmptyIndicatable, Activity
 
     // MARK: - EmptyIndicatable
 
-    var emptyIndicator: UIView?
+    @objc var emptyIndicator: UIView?
 
-    func setUpEmptyIndicator() {
+    @objc func setUpEmptyIndicator() {
         let frame = CGRect(origin: CGPoint.zero, size: Size.screenRectWithoutAppBar(self).size)
         guard let nohanaImagePickerController = nohanaImagePickerController else {
             return
@@ -227,7 +229,7 @@ class AlbumListViewController: UITableViewController, EmptyIndicatable, Activity
             config: nohanaImagePickerController.config)
     }
 
-    func isEmpty() -> Bool {
+    @objc func isEmpty() -> Bool {
         if isProgressing() {
             return false
         }
@@ -236,17 +238,17 @@ class AlbumListViewController: UITableViewController, EmptyIndicatable, Activity
 
     // MARK: - ActivityIndicatable
 
-    var activityIndicator: UIActivityIndicatorView?
-    var isLoading = true
-
-    func setUpActivityIndicator() {
+    @objc var activityIndicator: UIActivityIndicatorView?
+    @objc var isLoading = true
+    
+    @objc func setUpActivityIndicator() {
         activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         let screenRect = Size.screenRectWithoutAppBar(self)
         activityIndicator?.center = CGPoint(x: screenRect.size.width / 2, y: screenRect.size.height / 2)
         activityIndicator?.startAnimating()
     }
 
-    func isProgressing() -> Bool {
+    @objc func isProgressing() -> Bool {
         return isLoading
     }
 }
@@ -255,17 +257,26 @@ extension UIViewController {
 
     // MARK: - Toolbar
 
-    func setUpToolbarItems() {
+    @objc func setUpToolbarItems() {
         let leftSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
         let rightSpace = UIBarButtonItem(barButtonSystemItem: .flexibleSpace, target: nil, action: nil)
 
         let infoButton = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         infoButton.isEnabled = false
-        infoButton.setTitleTextAttributes([NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14), NSAttributedStringKey.foregroundColor: UIColor.black], for: UIControlState())
+        let userDefaults = UserDefaults(suiteName: dataModel.appGroupID)!
+        if let NightModeIsOn = userDefaults.value(forKeyPath: "NightModeIsOn") as? Bool {
+            if NightModeIsOn {
+                tintColor = UIColor.white
+            }
+            else{
+                tintColor = UIColor.black
+            }
+        }
+        infoButton.setTitleTextAttributes([NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14), NSAttributedStringKey.foregroundColor: tintColor], for: UIControlState())
         self.toolbarItems = [leftSpace, infoButton, rightSpace]
     }
 
-    func setToolbarTitle(_ nohanaImagePickerController: NohanaImagePickerController) {
+    @objc func setToolbarTitle(_ nohanaImagePickerController:NohanaImagePickerController) {
         let count: Int? = toolbarItems?.count
         guard count != nil && count! >= 2 else {
             return
@@ -277,7 +288,13 @@ extension UIViewController {
             let title = String(format: nohanaImagePickerController.config.strings.toolbarTitleNoLimit ?? NSLocalizedString("toolbar.title.nolimit", tableName: "NohanaImagePicker", bundle: nohanaImagePickerController.assetBundle, comment: ""),
                 nohanaImagePickerController.pickedAssetList.count)
             infoButton.title = title
-        } else {
+        }
+        else if nohanaImagePickerController.maximumNumberOfSelection == 1 {
+            let title = String(format: nohanaImagePickerController.config.strings.toolbarTitleNoLimit ?? NSLocalizedString("toolbar.title.videolimit", tableName: "NohanaImagePicker", bundle: nohanaImagePickerController.assetBundle, comment: ""),
+                               nohanaImagePickerController.pickedAssetList.count)
+            infoButton.title = title
+        }
+        else {
             let title = String(format: nohanaImagePickerController.config.strings.toolbarTitleHasLimit ?? NSLocalizedString("toolbar.title.haslimit", tableName: "NohanaImagePicker", bundle: nohanaImagePickerController.assetBundle, comment: ""),
                 nohanaImagePickerController.pickedAssetList.count,
                 nohanaImagePickerController.maximumNumberOfSelection)
@@ -287,7 +304,7 @@ extension UIViewController {
 
     // MARK: - Notification
 
-    func addPickPhotoKitAssetNotificationObservers() {
+    @objc func addPickPhotoKitAssetNotificationObservers() {
         NotificationCenter.default.addObserver(self, selector: #selector(AlbumListViewController.didPickPhotoKitAsset(_:)), name: NotificationInfo.Asset.PhotoKit.didPick, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(AlbumListViewController.didDropPhotoKitAsset(_:)), name:  NotificationInfo.Asset.PhotoKit.didDrop, object: nil)
     }

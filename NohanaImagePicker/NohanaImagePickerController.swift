@@ -39,19 +39,19 @@ public enum MediaType: Int {
 
 open class NohanaImagePickerController: UIViewController {
 
-    open var maximumNumberOfSelection: Int = 21 // set 0 to no limit
-    open var numberOfColumnsInPortrait: Int = 4
-    open var numberOfColumnsInLandscape: Int = 7
-    open weak var delegate: NohanaImagePickerControllerDelegate?
-    open var shouldShowMoment: Bool = true
-    open var shouldShowEmptyAlbum: Bool = false
-    open var toolbarHidden: Bool = false
+    @objc open var maximumNumberOfSelection: Int = 21 // set 0 to no limit
+    @objc open var numberOfColumnsInPortrait: Int = 4
+    @objc open var numberOfColumnsInLandscape: Int = 7
+    @objc open weak var delegate: NohanaImagePickerControllerDelegate?
+    @objc open var shouldShowMoment: Bool = true
+    @objc open var shouldShowEmptyAlbum: Bool = false
+    @objc open var toolbarHidden: Bool = false
     open var canPickAsset = { (asset: Asset) -> Bool in
         return true
     }
     open var config: Config = Config()
 
-    lazy var assetBundle: Bundle = {
+    @objc lazy var assetBundle:Bundle = {
         let bundle = Bundle(for: type(of: self))
         if let path = bundle.path(forResource: "NohanaImagePicker", ofType: "bundle") {
             return Bundle(path: path)!
@@ -60,7 +60,7 @@ open class NohanaImagePickerController: UIViewController {
     }()
     let pickedAssetList: PickedAssetList
     let mediaType: MediaType
-    let enableExpandingPhotoAnimation: Bool
+    @objc let enableExpandingPhotoAnimation: Bool
     fileprivate let assetCollectionSubtypes: [PHAssetCollectionSubtype]
 
     public init() {
@@ -74,10 +74,11 @@ open class NohanaImagePickerController: UIViewController {
             .albumCloudShared,
             .smartAlbumGeneric,
             .smartAlbumFavorites,
-            .smartAlbumRecentlyAdded,
-            .smartAlbumUserLibrary
+//            .smartAlbumRecentlyAdded,
+            .smartAlbumUserLibrary,
+            .smartAlbumVideos
         ]
-        mediaType = .photo
+        mediaType = .any
         pickedAssetList = PickedAssetList()
         enableExpandingPhotoAnimation = true
         super.init(nibName: nil, bundle: nil)

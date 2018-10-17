@@ -15,6 +15,8 @@
  */
 
 import UIKit
+import AVFoundation
+import AVKit
 
 class AssetDetailCell: UICollectionViewCell, UIScrollViewDelegate {
 
@@ -23,8 +25,16 @@ class AssetDetailCell: UICollectionViewCell, UIScrollViewDelegate {
 
     @IBOutlet weak var imageViewHeightConstraint: NSLayoutConstraint!
     @IBOutlet weak var imageViewWidthConstraint: NSLayoutConstraint!
-    let doubleTapGestureRecognizer: UITapGestureRecognizer = UITapGestureRecognizer()
-
+    
+    @IBOutlet weak var videoPlayerButton: UIButton!
+    @IBOutlet weak var videoMainView: UIView!
+    @IBOutlet weak var videoPlayerButtonMainView: UIView!
+    
+    @objc var avPlayerViewController:AVPlayerViewController? = AVPlayerViewController()
+    
+    @objc let doubleTapGestureRecognizer :UITapGestureRecognizer = UITapGestureRecognizer()
+    var asset: PhotoKitAsset?
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         doubleTapGestureRecognizer.addTarget(self, action: #selector(AssetDetailCell.didDoubleTap(_:)))
@@ -35,6 +45,11 @@ class AssetDetailCell: UICollectionViewCell, UIScrollViewDelegate {
         super.willMove(toSuperview: newSuperview)
         scrollView.removeGestureRecognizer(doubleTapGestureRecognizer)
         scrollView.addGestureRecognizer(doubleTapGestureRecognizer)
+        videoPlayerButton.setBackgroundImage(UIImage(named: "ic_play_circle_filled_white"), for: .normal)
+        videoPlayerButtonMainView.alpha = 0
+        UIView.animate(withDuration: 0.5) {
+            self.videoPlayerButtonMainView.alpha = 0.7
+        }
     }
 
     deinit {
@@ -60,7 +75,7 @@ class AssetDetailCell: UICollectionViewCell, UIScrollViewDelegate {
         }
     }
 
-    func zoomRect(_ center: CGPoint) -> CGRect {
+    @objc func zoomRect(_ center: CGPoint) -> CGRect {
         var zoomRect: CGRect = CGRect()
         zoomRect.size.height = scrollView.frame.size.height / scrollView.maximumZoomScale
         zoomRect.size.width = scrollView.frame.size.width / scrollView.maximumZoomScale

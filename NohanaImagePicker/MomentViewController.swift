@@ -85,7 +85,7 @@ class MomentViewController: AssetListViewController, ActivityIndicatable {
             width: cellSize.width * UIScreen.main.scale,
             height: cellSize.height * UIScreen.main.scale
         )
-        asset.image(targetSize: imageSize) { (imageData) -> Void in
+        asset.image(targetSize: imageSize, isPreview: true) { (imageData, data) -> Void in
             DispatchQueue.main.async(execute: { () -> Void in
                 if let imageData = imageData {
                     if cell.tag == indexPath.item {
@@ -93,6 +93,11 @@ class MomentViewController: AssetListViewController, ActivityIndicatable {
                     }
                 }
             })
+        }
+        cell.TagView.isHidden = asset.asset.mediaType != .video
+        if !cell.TagView.isHidden {
+            let time = "\(Int(asset.asset.duration / 60)):\(Int(asset.asset.duration.truncatingRemainder(dividingBy: 60)))"
+            cell.videoTimeLabel.text = time
         }
         return (nohanaImagePickerController.delegate?.nohanaImagePicker?(nohanaImagePickerController, assetListViewController: self, cell: cell, indexPath: indexPath, photoKitAsset: asset.originalAsset)) ?? cell
     }
@@ -121,17 +126,17 @@ class MomentViewController: AssetListViewController, ActivityIndicatable {
 
     // MARK: - ActivityIndicatable
 
-    var activityIndicator: UIActivityIndicatorView?
-    var isLoading = true
-
-    func setUpActivityIndicator() {
+    @objc var activityIndicator: UIActivityIndicatorView?
+    @objc var isLoading = true
+    
+    @objc func setUpActivityIndicator() {
         activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
         let screenRect = Size.screenRectWithoutAppBar(self)
         activityIndicator?.center = CGPoint(x: screenRect.size.width / 2, y: screenRect.size.height / 2)
         activityIndicator?.startAnimating()
     }
 
-    func isProgressing() -> Bool {
+    @objc func isProgressing() -> Bool {
         return isLoading
     }
 

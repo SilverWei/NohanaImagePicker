@@ -33,9 +33,9 @@ extension Size {
 
 class ContractingAnimationController: NSObject, UIViewControllerAnimatedTransitioning {
 
-    var fromCell: AssetDetailCell
+    @objc var fromCell: AssetDetailCell
 
-    init(_ fromCell: AssetDetailCell) {
+    @objc init(_ fromCell: AssetDetailCell) {
         self.fromCell = fromCell
     }
 

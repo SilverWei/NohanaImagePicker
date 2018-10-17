@@ -15,10 +15,12 @@
  */
 
 import UIKit
+import AVFoundation
+import AVKit
 
 class AssetDetailListViewController: AssetListViewController {
 
-    var currentIndexPath: IndexPath = IndexPath() {
+    @objc var currentIndexPath: IndexPath = IndexPath() {
         willSet {
             if currentIndexPath != newValue {
                 didChangeAssetDetailPage(newValue)
@@ -34,12 +36,11 @@ class AssetDetailListViewController: AssetListViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        if let nohanaImagePickerController = nohanaImagePickerController {
-            let droppedImage: UIImage? = nohanaImagePickerController.config.image.droppedLarge ?? UIImage(named: "btn_select_l", in: nohanaImagePickerController.assetBundle, compatibleWith: nil)
-            let pickedImage: UIImage? = nohanaImagePickerController.config.image.pickedLarge ?? UIImage(named: "btn_selected_l", in: nohanaImagePickerController.assetBundle, compatibleWith: nil)
-
-            pickButton.setImage(droppedImage, for: UIControlState())
-            pickButton.setImage(pickedImage, for: .selected)
+        if nohanaImagePickerController != nil {
+            
+            pickButton.setBackgroundImage(UIImage(named: "ic_radio_button_unchecked"), for: UIControlState())
+            pickButton.setBackgroundImage(UIImage(named: "ic_check_circle"), for: .selected)
+            
         }
     }
 
@@ -59,7 +60,7 @@ class AssetDetailListViewController: AssetListViewController {
         self.title = ""
     }
 
-    func didChangeAssetDetailPage(_ indexPath: IndexPath) {
+    @objc func didChangeAssetDetailPage(_ indexPath:IndexPath) {
         guard let nohanaImagePickerController = nohanaImagePickerController else {
             return
         }
@@ -119,16 +120,27 @@ class AssetDetailListViewController: AssetListViewController {
             height: cellSize.height * UIScreen.main.scale
         )
         let asset = photoKitAssetList[indexPath.item]
-        asset.image(targetSize: imageSize) { (imageData) -> Void in
+        asset.image(targetSize: imageSize, isPreview: false) { (imageData, data) -> Void in
             DispatchQueue.main.async(execute: { () -> Void in
                 if let imageData = imageData {
                     if cell.tag == indexPath.item {
-                        cell.imageView.image = imageData.image
+                        if data == nil {
+                            cell.imageView.image = imageData.image
+                        }
+                        else {
+                            cell.imageView.image = UIImage.gif(data: data!)
+                        }
                         cell.imageViewHeightConstraint.constant = self.cellSize.height
                         cell.imageViewWidthConstraint.constant = self.cellSize.width
                     }
                 }
             })
+        }
+        cell.videoMainView.isHidden = asset.asset.mediaType != .video
+        if !cell.videoMainView.isHidden {
+            cell.asset = asset
+            cell.videoPlayerButton.tag = indexPath.item
+            cell.videoPlayerButton.addTarget(self, action: #selector(videoPlayButtonClick(_:)), for: .touchUpInside)
         }
         return (nohanaImagePickerController.delegate?.nohanaImagePicker?(nohanaImagePickerController, assetDetailListViewController: self, cell: cell, indexPath: indexPath, photoKitAsset: asset.originalAsset)) ?? cell
     }
@@ -148,6 +160,14 @@ class AssetDetailListViewController: AssetListViewController {
             currentIndexPath = IndexPath(row: row, section: currentIndexPath.section)
         }
     }
+    
+    override func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if let cell = cell as? AssetDetailCell {
+            cell.avPlayerViewController?.view.removeFromSuperview()
+            cell.avPlayerViewController?.removeFromParentViewController()
+            cell.avPlayerViewController = nil
+        }
+    }
 
     // MARK: - UICollectionViewDelegateFlowLayout
 
@@ -155,4 +175,37 @@ class AssetDetailListViewController: AssetListViewController {
         return cellSize
     }
 
+    // MARK: - videoPlayer
+    
+    @objc func videoPlayButtonClick(_ sender: UIButton) {
+        let indexPath = IndexPath(item: sender.tag, section: 0)
+        let asset = photoKitAssetList[indexPath.item]
+        guard let collectionView = collectionView else {
+            return
+        }
+        if let cell = collectionView.cellForItem(at: indexPath) as? AssetDetailCell {
+            asset.video(asset: asset.asset, handler: { (avplayer) in
+                cell.avPlayerViewController = videoPlayerViewController()
+                cell.avPlayerViewController?.player = avplayer
+                cell.videoMainView.addSubview((cell.avPlayerViewController?.view)!)
+                cell.avPlayerViewController?.view.superview?.addConstraints(self.automaticLayout(itemView: (cell.avPlayerViewController?.view)!))
+                cell.avPlayerViewController?.didMove(toParentViewController: self)
+                cell.avPlayerViewController?.player?.play()
+            })
+        }
+    }
+    
+    @objc func automaticLayout(itemView: UIView) -> [NSLayoutConstraint]{
+        var layoutConstraints: [NSLayoutConstraint] = []
+        let leading: NSLayoutConstraint = NSLayoutConstraint(item: itemView, attribute: .leading, relatedBy: .equal, toItem: itemView.superview, attribute: .leading, multiplier: 1.0, constant: 0.0)
+        let trailing: NSLayoutConstraint = NSLayoutConstraint(item: itemView, attribute: .trailing, relatedBy: .equal, toItem: itemView.superview, attribute: .trailing, multiplier: 1.0, constant: 0.0)
+        let top: NSLayoutConstraint = NSLayoutConstraint(item: itemView, attribute: .top, relatedBy: .equal, toItem: itemView.superview, attribute: .top, multiplier: 1.0, constant: 0.0)
+        let bottom: NSLayoutConstraint = NSLayoutConstraint(item: itemView, attribute: .bottom, relatedBy: .equal, toItem: itemView.superview, attribute: .bottom, multiplier: 1.0, constant: 0.0)
+        itemView.translatesAutoresizingMaskIntoConstraints = false
+        layoutConstraints.append(leading)
+        layoutConstraints.append(trailing)
+        layoutConstraints.append(top)
+        layoutConstraints.append(bottom)
+        return layoutConstraints
+    }
 }
