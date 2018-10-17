@@ -38,7 +38,7 @@ class AssetDetailListViewController: AssetListViewController {
         super.viewDidLoad()
         if nohanaImagePickerController != nil {
             
-            pickButton.setBackgroundImage(UIImage(named: "ic_radio_button_unchecked"), for: UIControlState())
+            pickButton.setBackgroundImage(UIImage(named: "ic_radio_button_unchecked"), for: UIControl.State())
             pickButton.setBackgroundImage(UIImage(named: "ic_check_circle"), for: .selected)
             
         }
@@ -77,7 +77,7 @@ class AssetDetailListViewController: AssetListViewController {
         }
         DispatchQueue.main.async {
             let toIndexPath = IndexPath(item: indexPath.item, section: 0)
-            self.collectionView?.scrollToItem(at: toIndexPath, at: UICollectionViewScrollPosition.centeredHorizontally, animated: false)
+            self.collectionView?.scrollToItem(at: toIndexPath, at: UICollectionView.ScrollPosition.centeredHorizontally, animated: false)
         }
     }
 
@@ -164,7 +164,7 @@ class AssetDetailListViewController: AssetListViewController {
     override func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         if let cell = cell as? AssetDetailCell {
             cell.avPlayerViewController?.view.removeFromSuperview()
-            cell.avPlayerViewController?.removeFromParentViewController()
+            cell.avPlayerViewController?.removeFromParent()
             cell.avPlayerViewController = nil
         }
     }
@@ -189,7 +189,7 @@ class AssetDetailListViewController: AssetListViewController {
                 cell.avPlayerViewController?.player = avplayer
                 cell.videoMainView.addSubview((cell.avPlayerViewController?.view)!)
                 cell.avPlayerViewController?.view.superview?.addConstraints(self.automaticLayout(itemView: (cell.avPlayerViewController?.view)!))
-                cell.avPlayerViewController?.didMove(toParentViewController: self)
+                cell.avPlayerViewController?.didMove(toParent: self)
                 cell.avPlayerViewController?.player?.play()
             })
         }

@@ -30,7 +30,7 @@ class AssetCell: UICollectionViewCell {
     override func willMove(toSuperview newSuperview: UIView?) {
         super.willMove(toSuperview: newSuperview)
         if nohanaImagePickerController != nil {
-            pickButton.setBackgroundImage(UIImage(named: "ic_radio_button_unchecked"), for: UIControlState())
+            pickButton.setBackgroundImage(UIImage(named: "ic_radio_button_unchecked"), for: UIControl.State())
             pickButton.setBackgroundImage(UIImage(named: "ic_check_circle"), for: .selected)
             videoTag.image = UIImage(named: "ic_videocam_white")
             

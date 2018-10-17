@@ -242,7 +242,7 @@ class AlbumListViewController: TableViewController, EmptyIndicatable, ActivityIn
     @objc var isLoading = true
     
     @objc func setUpActivityIndicator() {
-        activityIndicator = UIActivityIndicatorView(activityIndicatorStyle: .gray)
+        activityIndicator = UIActivityIndicatorView(style: .gray)
         let screenRect = Size.screenRectWithoutAppBar(self)
         activityIndicator?.center = CGPoint(x: screenRect.size.width / 2, y: screenRect.size.height / 2)
         activityIndicator?.startAnimating()
@@ -263,6 +263,7 @@ extension UIViewController {
 
         let infoButton = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         infoButton.isEnabled = false
+        var tintColor: UIColor = UIColor.black
         let userDefaults = UserDefaults(suiteName: dataModel.appGroupID)!
         if let NightModeIsOn = userDefaults.value(forKeyPath: "NightModeIsOn") as? Bool {
             if NightModeIsOn {
@@ -272,7 +273,7 @@ extension UIViewController {
                 tintColor = UIColor.black
             }
         }
-        infoButton.setTitleTextAttributes([NSAttributedStringKey.font: UIFont.systemFont(ofSize: 14), NSAttributedStringKey.foregroundColor: tintColor], for: UIControlState())
+        infoButton.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: tintColor], for: UIControl.State())
         self.toolbarItems = [leftSpace, infoButton, rightSpace]
     }
 

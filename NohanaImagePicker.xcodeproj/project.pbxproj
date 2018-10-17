@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3569CAA91EC1918E000C41C0 /* NohanaImagePicker.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3569CAA61EC1918E000C41C0 /* NohanaImagePicker.xcassets */; };
+		472128692177119C004A9653 /* UIImage+Gif.swift in Sources */ = {isa = PBXBuildFile; fileRef = 472128682177119C004A9653 /* UIImage+Gif.swift */; };
 		4733B7E12176E17D006FD41D /* ImgResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4733B7DE2176E17D006FD41D /* ImgResponse.swift */; };
 		4733B7E22176E17D006FD41D /* NightMode.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4733B7DF2176E17D006FD41D /* NightMode.swift */; };
 		4733B7E32176E17D006FD41D /* DataModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4733B7E02176E17D006FD41D /* DataModel.swift */; };
@@ -78,6 +79,7 @@
 		23D1CD93207CEB1200F8115E /* de */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = de; path = de.lproj/NohanaImagePicker.strings; sourceTree = "<group>"; };
 		3569CAA61EC1918E000C41C0 /* NohanaImagePicker.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = NohanaImagePicker.xcassets; sourceTree = "<group>"; };
 		3590F1F51EC1A79400F32E06 /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/NohanaImagePicker.strings; sourceTree = "<group>"; };
+		472128682177119C004A9653 /* UIImage+Gif.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIImage+Gif.swift"; path = "../SM.MS-iOS/SMMS/Pods/SwiftGifOrigin/SwiftGifCommon/UIImage+Gif.swift"; sourceTree = "<group>"; };
 		4733B7DE2176E17D006FD41D /* ImgResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImgResponse.swift; path = "../SM.MS-iOS/SMMS/SMMS/Other/ImgResponse.swift"; sourceTree = "<group>"; };
 		4733B7DF2176E17D006FD41D /* NightMode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NightMode.swift; path = "../SM.MS-iOS/SMMS/SMMS/Other/NightMode.swift"; sourceTree = "<group>"; };
 		4733B7E02176E17D006FD41D /* DataModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DataModel.swift; path = "../SM.MS-iOS/SMMS/SMMS/Other/DataModel.swift"; sourceTree = "<group>"; };
@@ -159,6 +161,7 @@
 				4733B7DE2176E17D006FD41D /* ImgResponse.swift */,
 				4733B7DF2176E17D006FD41D /* NightMode.swift */,
 				4733B7E62176E1B1006FD41D /* videoPlayerViewController.swift */,
+				472128682177119C004A9653 /* UIImage+Gif.swift */,
 				4733B7E82176E1B7006FD41D /* Assets.xcassets */,
 			);
 			name = Other;
@@ -443,6 +446,7 @@
 				F24EB6901C68AEED0002EC86 /* AlbumListViewController.swift in Sources */,
 				F28F4AC31C6C49EE00B7D725 /* PhotoKitAssetList.swift in Sources */,
 				F26775EA1C71645A002E786C /* ContractingAnimationController.swift in Sources */,
+				472128692177119C004A9653 /* UIImage+Gif.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -647,7 +651,7 @@
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Debug;
 		};
@@ -668,7 +672,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 			};
 			name = Release;
 		};
