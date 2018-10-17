@@ -37,10 +37,8 @@ class AssetDetailListViewController: AssetListViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         if nohanaImagePickerController != nil {
-            
             pickButton.setBackgroundImage(UIImage(named: "ic_radio_button_unchecked"), for: UIControl.State())
             pickButton.setBackgroundImage(UIImage(named: "ic_check_circle"), for: .selected)
-            
         }
     }
 
