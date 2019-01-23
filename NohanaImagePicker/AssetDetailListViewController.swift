@@ -122,11 +122,12 @@ class AssetDetailListViewController: AssetListViewController {
             DispatchQueue.main.async(execute: { () -> Void in
                 if let imageData = imageData {
                     if cell.tag == indexPath.item {
+                        cell.imageView.image = imageData.image
                         if data == nil {
                             cell.imageView.image = imageData.image
                         }
                         else {
-                            cell.imageView.image = UIImage.gif(data: data!)
+//                            cell.imageView.image = UIImage.gif(data: data!)
                         }
                         cell.imageViewHeightConstraint.constant = self.cellSize.height
                         cell.imageViewWidthConstraint.constant = self.cellSize.width

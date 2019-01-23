@@ -17,9 +17,7 @@
 import UIKit
 import Photos
 
-var dataModel = DataModel()
-
-class AlbumListViewController: TableViewController, EmptyIndicatable, ActivityIndicatable {
+class AlbumListViewController: UITableViewController, EmptyIndicatable, ActivityIndicatable {
 
     enum AlbumListViewControllerSectionType: Int {
         case moment = 0
@@ -263,16 +261,7 @@ extension UIViewController {
 
         let infoButton = UIBarButtonItem(title: "", style: .plain, target: nil, action: nil)
         infoButton.isEnabled = false
-        var tintColor: UIColor = UIColor.black
-        let userDefaults = UserDefaults(suiteName: dataModel.appGroupID)!
-        if let NightModeIsOn = userDefaults.value(forKeyPath: "NightModeIsOn") as? Bool {
-            if NightModeIsOn {
-                tintColor = UIColor.white
-            }
-            else{
-                tintColor = UIColor.black
-            }
-        }
+        let tintColor: UIColor = UIColor.black
         infoButton.setTitleTextAttributes([NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: tintColor], for: UIControl.State())
         self.toolbarItems = [leftSpace, infoButton, rightSpace]
     }

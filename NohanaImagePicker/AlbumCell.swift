@@ -16,7 +16,7 @@
 
 import UIKit
 
-class AlbumCell: TableViewCell {
+class AlbumCell: UITableViewCell {
     @IBOutlet weak var thumbnailImageView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
 }
